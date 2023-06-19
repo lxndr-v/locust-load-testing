@@ -177,24 +177,24 @@ class HelloWorldUser(HttpUser):
         
 
     
-    # @task
-    # def update_user_put(self):
-    #     nickname=random.choice(nicks)
-    #     user_data = {
-    #         "phone": random.choice(telephone_numbers),
-    #         "userStatus": 0
-    #         }
-    #     with self.client.put(f"/user/{nickname}", json=user_data, timeout=7, catch_response=True) as responce:
-    #         if responce.elapsed.microseconds > self.cust_wait_time:
-    #             responce.failure("Request took too long time!")
-    #         elif responce.status_code == 400:
-    #             responce.failure("Invalid user supplied")
-    #         elif responce.status_code == 404:
-    #             responce.failure("User not found")
-    #         else:
-    #             print(responce.content)
+    @task
+    def update_user_put(self):
+        nickname=random.choice(nicks)
+        user_data = {
+            "phone": random.choice(telephone_numbers),
+            "userStatus": 0
+            }
+        with self.client.put(f"/user/{nickname}", json=user_data, timeout=7, catch_response=True) as responce:
+            if responce.elapsed.microseconds > self.cust_wait_time:
+                responce.failure("Request took too long time!")
+            elif responce.status_code == 400:
+                responce.failure("Invalid user supplied")
+            elif responce.status_code == 404:
+                responce.failure("User not found")
+            else:
+                print(responce.content)
                 
-    #     wait_time = between(2, 39)
+        wait_time = between(2, 39)
         
     @task
     def delete_user(self):
@@ -212,32 +212,32 @@ class HelloWorldUser(HttpUser):
         wait_time = between(4, 36)
 
 
-    # @task
-    # def get_user(self):
-    #     nickname=random.choice(nicks)
-    #     with self.client.get(f"/user/{nickname}", catch_response=True) as responce:
-    #         if responce.elapsed.microseconds > self.cust_wait_time:
-    #             responce.failure("Request took too long time!")
-    #         elif responce.status_code == 400:
-    #             responce.failure("Invalid user supplied")
-    #         elif responce.status_code == 404:
-    #             responce.failure("User not found")
-    #         else:
-    #             print(responce.content)
+    @task
+    def get_user(self):
+        nickname=random.choice(nicks)
+        with self.client.get(f"/user/{nickname}", catch_response=True) as responce:
+            if responce.elapsed.microseconds > self.cust_wait_time:
+                responce.failure("Request took too long time!")
+            elif responce.status_code == 400:
+                responce.failure("Invalid user supplied")
+            elif responce.status_code == 404:
+                responce.failure("User not found")
+            else:
+                print(responce.content)
                 
-    #     wait_time = between(1, 5)
+        wait_time = between(1, 5)
 
-    # @task
-    # def get_pet_by_id(self):
-    #     pet_id_to_find = random.choice(random.randrange(1000, self.pet_id))
-    #     with self.client.get(f"/pet/{pet_id_to_find}", catch_response=True) as responce:
-    #         if responce.elapsed.microseconds > self.cust_wait_time:
-    #             responce.failure("Request took too long time!")
-    #         elif responce.status_code == 400:
-    #             responce.failure("Invalid ID supplied")
-    #         elif responce.status_code == 404:
-    #             responce.failure("Pet not found")
-    #         else:
-    #             print(responce.content)
+    @task
+    def get_pet_by_id(self):
+        pet_id_to_find = random.choice(random.randrange(1000, self.pet_id))
+        with self.client.get(f"/pet/{pet_id_to_find}", catch_response=True) as responce:
+            if responce.elapsed.microseconds > self.cust_wait_time:
+                responce.failure("Request took too long time!")
+            elif responce.status_code == 400:
+                responce.failure("Invalid ID supplied")
+            elif responce.status_code == 404:
+                responce.failure("Pet not found")
+            else:
+                print(responce.content)
                 
-    #     wait_time = between(1, 4)
+        wait_time = between(1, 4)
